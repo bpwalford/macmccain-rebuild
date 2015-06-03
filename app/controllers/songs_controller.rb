@@ -1,7 +1,9 @@
 class SongsController < ApplicationController
 
   def index
-    @songs = AWS::S3::Bucket.find(Macmccain::BUCKET).objects
+    @songs = AWS::S3::Bucket.find(Macmccain::BUCKET, prefix: 'foo').objects
+    binding.pry
+    puts 'hi'
   end
 
   def upload
@@ -25,6 +27,10 @@ class SongsController < ApplicationController
     else
       render text: "No song was found to delete"
     end
+  end
+
+  def purchase
+    redirect_to songs_path
   end
 
   private
